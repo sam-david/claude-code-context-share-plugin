@@ -1,0 +1,8 @@
+{
+  "name": "context-share",
+  "description": "Share conversation context between Claude Code agents across sessions and machines",
+  "version": "0.1.0",
+  "author": {
+    "name": "Sam"
+  }
+}

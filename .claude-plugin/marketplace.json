@@ -1,0 +1,19 @@
+{
+  "name": "context-share",
+  "description": "Share conversation context between Claude Code agents across sessions and machines",
+  "owner": {
+    "name": "Sam"
+  },
+  "plugins": [
+    {
+      "name": "context-share",
+      "description": "Share conversation context between Claude Code agents across sessions and machines. Save context with /context-save <key> and load it on any machine with /context-load <key>.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Sam"
+      },
+      "source": "./context-share",
+      "category": "productivity"
+    }
+  ]
+}
