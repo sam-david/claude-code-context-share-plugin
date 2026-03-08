@@ -9,7 +9,7 @@ One agent runs `/context-save my-key`, another runs `/context-load my-key` — o
 Two components:
 
 1. **Server** — A small Go HTTP server that stores and retrieves context bundles, backed by SQLite.
-2. **Plugin** — Two Claude Code slash commands (`/context-save` and `/context-load`) that compile and transfer context.
+2. **Plugin** — Three Claude Code slash commands (`/context-save`, `/context-load`, and `/context-delete`) that compile, transfer, and manage context.
 
 The server is a self-contained binary with no external dependencies. SQLite is embedded — no database server to install or configure. The database file and table are created automatically on first run.
 
@@ -134,12 +134,11 @@ The agent fetches the context, presents it, reads relevant local files if they e
 
 ### Delete context
 
-Not exposed as a slash command, but available via the API:
-
-```bash
-curl -X DELETE "${CONTEXT_SHARE_URL}/context/my-feature" \
-  -H "Authorization: Bearer ${CONTEXT_SHARE_API_KEY}"
 ```
+/context-delete my-feature
+```
+
+Removes the context from the server.
 
 ## API Reference
 
