@@ -76,6 +76,12 @@ In any Claude Code session:
 
 The agent compiles a structured context bundle from the conversation — summary, decisions made, files touched, current state, next steps, key code snippets, and warnings — then uploads it to the server under the key `my-feature`.
 
+Save only specific context instead of everything:
+
+```
+/context-share:save my-feature the database schema and why we chose SQLite
+```
+
 Optional TTL (auto-expire after N hours):
 
 ```

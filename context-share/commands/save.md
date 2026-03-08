@@ -1,6 +1,6 @@
 ---
 description: Save current conversation context to share with another Claude Code agent
-argument-hint: <key> [--ttl <hours>]
+argument-hint: <key> [specific context to save] [--ttl <hours>]
 allowed-tools: [Bash, Read, Glob]
 ---
 
@@ -12,7 +12,7 @@ Save the current conversation context so another Claude Code agent (on any machi
 
 The user invoked this command with: $ARGUMENTS
 
-Parse the first argument as the context key (required). Optionally parse `--ttl <hours>` for automatic expiration.
+Parse the first argument as the context key (required). Optionally parse `--ttl <hours>` for automatic expiration. Any remaining text after the key (and before --ttl if present) is a description of what specific context to save.
 
 ## Required Environment Variables
 
@@ -27,7 +27,7 @@ Parse the first argument as the context key (required). Optionally parse `--ttl 
    ```
    If either is missing, tell the user to set them and stop.
 
-2. Compile a comprehensive context object from this conversation. Reflect on everything discussed, decided, and done. Build a JSON object with these fields:
+2. Compile a context object from this conversation. If the user provided a description of specific context to save, focus **only** on that topic — include only the decisions, files, snippets, and details relevant to what they described. If no description was provided, save everything. Build a JSON object with these fields:
 
    - **summary** (string): 2-4 sentence overview of this conversation — what was the goal, what was accomplished, where things stand now.
    - **decisions** (array of strings): Key technical decisions made during this conversation. Include the reasoning, not just the choice.
