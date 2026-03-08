@@ -2,14 +2,14 @@
 
 Share conversation context between Claude Code agents across sessions and machines.
 
-One agent runs `/context-save my-key`, another runs `/context-load my-key` — on any machine — and picks up right where the first left off.
+One agent runs `/context-share:save my-key`, another runs `/context-share:load my-key` — on any machine — and picks up right where the first left off.
 
 ## How It Works
 
 Two components:
 
 1. **Server** — A small Go HTTP server that stores and retrieves context bundles, backed by SQLite.
-2. **Plugin** — Three Claude Code slash commands (`/context-save`, `/context-load`, and `/context-delete`) that compile, transfer, and manage context.
+2. **Plugin** — Three Claude Code slash commands (`/context-share:save`, `/context-share:load`, and `/context-share:delete`) that compile, transfer, and manage context.
 
 The server is a self-contained binary with no external dependencies. SQLite is embedded — no database server to install or configure. The database file and table are created automatically on first run.
 
@@ -71,7 +71,7 @@ Both variables are required on every machine that will use the plugin.
 In any Claude Code session:
 
 ```
-/context-save my-feature
+/context-share:save my-feature
 ```
 
 The agent compiles a structured context bundle from the conversation — summary, decisions made, files touched, current state, next steps, key code snippets, and warnings — then uploads it to the server under the key `my-feature`.
@@ -79,7 +79,7 @@ The agent compiles a structured context bundle from the conversation — summary
 Optional TTL (auto-expire after N hours):
 
 ```
-/context-save my-feature --ttl 72
+/context-share:save my-feature --ttl 72
 ```
 
 ### Load context
@@ -87,7 +87,7 @@ Optional TTL (auto-expire after N hours):
 In a new Claude Code session (same machine or different):
 
 ```
-/context-load my-feature
+/context-share:load my-feature
 ```
 
 The agent fetches the context, presents it, reads relevant local files if they exist, and offers to continue where the previous session left off.
@@ -95,7 +95,7 @@ The agent fetches the context, presents it, reads relevant local files if they e
 ### Delete context
 
 ```
-/context-delete my-feature
+/context-share:delete my-feature
 ```
 
 Removes the context from the server.
