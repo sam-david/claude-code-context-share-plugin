@@ -38,49 +38,6 @@ export DB_PATH="context-share.db"                     # optional, default: conte
 
 The server will create `context-share.db` in the current directory on first run. No migrations or initialization needed.
 
-### Cross-compile for deployment
-
-Build on your Mac, deploy to a Linux server:
-
-```bash
-GOOS=linux GOARCH=amd64 go build -o context-share .
-scp context-share your-server:/opt/context-share/
-```
-
-### Run with systemd (Linux)
-
-Create `/etc/systemd/system/context-share.service`:
-
-```ini
-[Unit]
-Description=context-share server
-After=network.target
-
-[Service]
-ExecStart=/opt/context-share/context-share
-Environment=CONTEXT_SHARE_API_KEY=your-secret-api-key
-Environment=DB_PATH=/opt/context-share/data/context-share.db
-WorkingDirectory=/opt/context-share
-Restart=always
-
-[Install]
-WantedBy=multi-user.target
-```
-
-Then:
-
-```bash
-sudo systemctl enable --now context-share
-```
-
-### Docker
-
-```bash
-cd server
-docker build -t context-share .
-docker run -p 8787:8787 -e CONTEXT_SHARE_API_KEY=your-secret -v context-data:/data -e DB_PATH=/data/context-share.db context-share
-```
-
 ## Plugin Setup
 
 ### Install the plugin
@@ -142,6 +99,51 @@ The agent fetches the context, presents it, reads relevant local files if they e
 ```
 
 Removes the context from the server.
+
+## Deployment Options
+
+### Cross-compile for deployment
+
+Build on your Mac, deploy to a Linux server:
+
+```bash
+GOOS=linux GOARCH=amd64 go build -o context-share .
+scp context-share your-server:/opt/context-share/
+```
+
+### Run with systemd (Linux)
+
+Create `/etc/systemd/system/context-share.service`:
+
+```ini
+[Unit]
+Description=context-share server
+After=network.target
+
+[Service]
+ExecStart=/opt/context-share/context-share
+Environment=CONTEXT_SHARE_API_KEY=your-secret-api-key
+Environment=DB_PATH=/opt/context-share/data/context-share.db
+WorkingDirectory=/opt/context-share
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Then:
+
+```bash
+sudo systemctl enable --now context-share
+```
+
+### Docker
+
+```bash
+cd server
+docker build -t context-share .
+docker run -p 8787:8787 -e CONTEXT_SHARE_API_KEY=your-secret -v context-data:/data -e DB_PATH=/data/context-share.db context-share
+```
 
 ## API Reference
 
