@@ -86,10 +86,13 @@ docker run -p 8787:8787 -e CONTEXT_SHARE_API_KEY=your-secret -v context-data:/da
 ### Install the plugin
 
 ```bash
-# 1. Add the marketplace (local path, or a GitHub repo URL)
-claude plugin marketplace add /path/to/context-share
+# 1. Add the marketplace (from GitHub)
+claude plugin marketplace add sam-david/claude-code-context-share-plugin
 
-# 2. Install the plugin from that marketplace
+# Or from a local path if you've cloned the repo
+claude plugin marketplace add /path/to/claude-code-context-share-plugin
+
+# 2. Install the plugin
 claude plugin install context-share
 ```
 
